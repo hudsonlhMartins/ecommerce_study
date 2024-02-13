@@ -6,6 +6,7 @@ import { createCategoryController } from './useCase/createCategory'
 import { listCategoryController } from './useCase/listCategory'
 import { addProductInCategoryController } from './useCase/addCategoryInProduct'
 import { listAllProductInCategoryController } from './useCase/listAllProductInCategory'
+import { findProductByCategoryIdController } from './useCase/findProductByCategoryId/indext'
 
 const app = fastify()
 
@@ -39,6 +40,12 @@ app.get(
   '/category-product/',
   listAllProductInCategoryController.handle.bind(
     listAllProductInCategoryController,
+  ),
+)
+app.get(
+  '/category-product/:categoryId',
+  findProductByCategoryIdController.handle.bind(
+    findProductByCategoryIdController,
   ),
 )
 
