@@ -2,6 +2,7 @@ import { ProductInCategory } from '@/entities/ProductInCategory'
 
 import { UUID } from 'node:crypto'
 import { ProductsJoinSku } from './IProductsRepository'
+import { Category } from '@/entities/Category'
 
 export interface IProductInCategoryRepository {
   save({
@@ -13,4 +14,5 @@ export interface IProductInCategoryRepository {
   }): Promise<void>
   list(): Promise<ProductInCategory[]>
   findProductByCategoryId(categoryId: UUID): Promise<ProductsJoinSku[] | []>
+  findCategorytByProductId(productId: UUID): Promise<Category | undefined>
 }

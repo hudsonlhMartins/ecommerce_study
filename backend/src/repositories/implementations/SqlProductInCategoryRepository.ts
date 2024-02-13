@@ -3,6 +3,7 @@ import { knex } from '@/database'
 import { IProductInCategoryRepository } from '../IProductInCategoryRepository'
 import { ProductInCategory } from '@/entities/ProductInCategory'
 import { ProductsJoinSku } from '../IProductsRepository'
+import { Category } from '@/entities/Category'
 
 export class SqlProductInCategoryRepository
   implements IProductInCategoryRepository
@@ -18,6 +19,25 @@ export class SqlProductInCategoryRepository
       categoryId,
       productId,
     })
+  }
+
+  async findCategorytByProductId(
+    productId: UUID,
+  ): Promise<Category | undefined> {
+    const productInCategory = await knex('products_categorys')
+      .where({
+        productId,
+      })
+      .first()
+    if (!productInCategory) {
+      return undefined
+    }
+    const { categoryId } = productInCategory
+    const findCategory = await knex('categorys')
+      .where('categoryId', categoryId)
+      .first()
+
+    return findCategory
   }
 
   async list(): Promise<ProductInCategory[]> {

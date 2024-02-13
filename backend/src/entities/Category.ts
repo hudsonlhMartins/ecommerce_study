@@ -1,7 +1,7 @@
 import { randomUUID, UUID } from 'node:crypto'
 
 export class Category {
-  private readonly categoryId?: UUID = randomUUID()
+  private readonly categoryId: UUID = randomUUID()
   name: string = ''
 
   constructor(props: Omit<Category, 'categoryId'>, categoryId?: UUID) {
