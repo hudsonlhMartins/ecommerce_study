@@ -1,10 +1,10 @@
-import { SqlProductRepository } from '@/repositories/implementations/SqlProductRepository'
+import { SqlProductInCategoryRepository } from '@/repositories/implementations/SqlProductInCategoryRepository'
 import { AddProductInCategoryController } from './AddProductInCategoryController'
 import { AddProductInCategoryUseCase } from './AddProductInCategoryUseCase'
 
-const sqlProductRepository = new SqlProductRepository()
+const sqlProductInCategoryRepository = new SqlProductInCategoryRepository()
 const addProductInCategoryUseCase = new AddProductInCategoryUseCase(
-  sqlProductRepository,
+  sqlProductInCategoryRepository,
 )
 const addProductInCategoryController = new AddProductInCategoryController(
   addProductInCategoryUseCase,

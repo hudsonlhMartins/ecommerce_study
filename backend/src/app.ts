@@ -5,6 +5,7 @@ import { listProductsController } from './useCase/listProducts'
 import { createCategoryController } from './useCase/createCategory'
 import { listCategoryController } from './useCase/listCategory'
 import { addProductInCategoryController } from './useCase/addCategoryInProduct'
+import { listAllProductInCategoryController } from './useCase/listAllProductInCategory'
 
 const app = fastify()
 
@@ -20,10 +21,6 @@ app.get(
   '/products/',
   listProductsController.handle.bind(listProductsController),
 )
-app.post(
-  '/products/add-category',
-  addProductInCategoryController.handle.bind(addProductInCategoryController),
-)
 
 app.post(
   '/category/create',
@@ -32,6 +29,17 @@ app.post(
 app.get(
   '/category/',
   listCategoryController.handle.bind(listCategoryController),
+)
+
+app.post(
+  '/category-product/add-category',
+  addProductInCategoryController.handle.bind(addProductInCategoryController),
+)
+app.get(
+  '/category-product/',
+  listAllProductInCategoryController.handle.bind(
+    listAllProductInCategoryController,
+  ),
 )
 
 app.get('/', async () => {
