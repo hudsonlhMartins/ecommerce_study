@@ -1,13 +1,15 @@
-import { UUID } from 'node:crypto'
+import { UUID, randomUUID } from 'node:crypto'
 
 export class Product {
-  readonly productId: UUID
-  name: string
-  description: string
+  readonly productId?: UUID
+  name: string = ''
+  description: string = ''
 
-  constructor({ productId, name, description }: Product) {
-    this.productId = productId
-    this.name = name
-    this.description = description
+  constructor(props: Omit<Product, 'productId'>, productId?: UUID) {
+    Object.assign(this, props)
+
+    if (!productId) {
+      this.productId = randomUUID()
+    }
   }
 }
