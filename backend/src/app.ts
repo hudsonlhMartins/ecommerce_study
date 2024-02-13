@@ -4,6 +4,7 @@ import { findProductByIdController } from './useCase/findProductbyId'
 import { listProductsController } from './useCase/listProducts'
 import { createCategoryController } from './useCase/createCategory'
 import { listCategoryController } from './useCase/listCategory'
+import { addProductInCategoryController } from './useCase/addCategoryInProduct'
 
 const app = fastify()
 
@@ -18,6 +19,10 @@ app.get(
 app.get(
   '/products/',
   listProductsController.handle.bind(listProductsController),
+)
+app.post(
+  '/products/add-category',
+  addProductInCategoryController.handle.bind(addProductInCategoryController),
 )
 
 app.post(

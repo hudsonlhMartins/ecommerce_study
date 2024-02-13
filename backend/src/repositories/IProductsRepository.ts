@@ -8,6 +8,13 @@ export interface ProductsJoinSku extends Product {
 
 export interface IProductsRepository {
   save(product: Product): Promise<void>
+  addProductInCategory({
+    categoryId,
+    productId,
+  }: {
+    categoryId: UUID
+    productId: UUID
+  }): Promise<void>
   findById(productId: UUID): Promise<ProductsJoinSku | undefined>
   findByName(name: string): Promise<ProductsJoinSku | undefined>
   findByCatedoryId(categoryId: UUID): Promise<ProductsJoinSku[]>

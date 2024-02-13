@@ -8,6 +8,19 @@ export class SqlProductRepository implements IProductsRepository {
     await knex('products').insert(product)
   }
 
+  async addProductInCategory({
+    categoryId,
+    productId,
+  }: {
+    categoryId: UUID
+    productId: UUID
+  }): Promise<void> {
+    await knex('products_categorys').insert({
+      categoryId,
+      productId,
+    })
+  }
+
   async findById(productId: UUID): Promise<ProductsJoinSku | undefined> {
     const product = await knex('products').where('productId', productId).first()
     if (!product) return undefined
