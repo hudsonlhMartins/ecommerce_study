@@ -4,5 +4,5 @@ import { FastifyInstance } from 'fastify'
 
 export const imageRouter = async (app: FastifyInstance) => {
   app.get('/', listAllImagesController.handle.bind(listAllImagesController))
-  app.get('/create', createImageController.handle.bind(createImageController))
+  app.post('/create', createImageController.handle.bind(createImageController))
 }

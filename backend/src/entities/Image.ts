@@ -1,17 +1,14 @@
 import { UUID, randomUUID } from 'node:crypto'
 
 export class Image {
-  constructor(
-    readonly name: string,
-    readonly imageUrl: string,
-    readonly skuId: UUID,
-    readonly imageId?: UUID,
-  ) {
-    this.imageUrl = imageUrl
-    this.name = name
-    this.skuId = skuId
+  readonly name: string = ''
+  readonly image_url: string = ''
+  readonly skuId: UUID = randomUUID()
+  readonly imageId?: UUID = randomUUID()
+  constructor(props: Image) {
+    Object.assign(this, props)
 
-    if (!imageId) {
+    if (!props.imageId) {
       this.imageId = randomUUID()
     }
   }

@@ -6,6 +6,7 @@ export class CreateimageUseCase {
     constructor(private readonly imageRepository: IImageRepository){}
 
   async execute(props: Image) {
-    await this.imageRepository.save(props)
+    const image = new Image(props)
+    await this.imageRepository.save(image)
   }
 }

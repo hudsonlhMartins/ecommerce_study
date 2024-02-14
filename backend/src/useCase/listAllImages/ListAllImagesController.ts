@@ -8,6 +8,6 @@ export class ListAllImagesController {
   async handle(_: FastifyRequest, res: FastifyReply) {
     const images = await this.listAllImageUseCase.execute()
 
-    return res.send(200).send(images)
+    return res.status(200).send(images)
   }
 }

@@ -3,6 +3,7 @@ import { productsRouter } from './routes/product'
 import { categoryRouter } from './routes/category'
 import { categoryProductRouter } from './routes/categoryProduct'
 import { imageRouter } from './routes/image'
+import { skuRouter } from './routes/skus'
 
 const app = fastify()
 
@@ -17,6 +18,9 @@ app.register(categoryProductRouter, {
 })
 app.register(imageRouter, {
   prefix: 'image',
+})
+app.register(skuRouter, {
+  prefix: 'sku',
 })
 
 app.get('/', async () => {

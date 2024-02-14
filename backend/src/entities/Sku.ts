@@ -1,7 +1,7 @@
 import { randomUUID, UUID } from 'node:crypto'
 
 export class Sku {
-  private readonly skuId: UUID = randomUUID()
+  readonly skuId?: UUID = randomUUID()
   name: string = ''
   productId: string = ''
   price = 0

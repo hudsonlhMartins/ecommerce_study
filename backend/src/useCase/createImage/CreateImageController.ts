@@ -25,9 +25,14 @@ export class CreateImageController {
     const _skuId = skuId as UUID
 
     try {
-      await this.createImageUseCase.execute({ imageUrl, name, skuId: _skuId })
+      await this.createImageUseCase.execute({
+        image_url: imageUrl,
+        name,
+        skuId: _skuId,
+      })
       return res.status(201).send()
     } catch (err) {
+      console.log(err)
       return res.status(500).send({ message: 'Error unexpected' })
     }
   }
