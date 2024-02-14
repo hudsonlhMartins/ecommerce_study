@@ -23,7 +23,7 @@ export class SqlProductInCategoryRepository
 
   async findCategorytByProductId(
     productId: UUID,
-  ): Promise<Category | undefined> {
+  ): Promise<Category[] | undefined> {
     const productInCategory = await knex('products_categorys')
       .where({
         productId,
@@ -33,9 +33,7 @@ export class SqlProductInCategoryRepository
       return undefined
     }
     const { categoryId } = productInCategory
-    const findCategory = await knex('categorys')
-      .where('categoryId', categoryId)
-      .first()
+    const findCategory = await knex('categorys').where('categoryId', categoryId)
 
     return findCategory
   }

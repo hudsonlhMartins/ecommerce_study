@@ -4,6 +4,7 @@ import { UUID } from 'node:crypto'
 
 export interface ProductsJoinSku extends Product {
   skus: Sku[]
+  categories?: string[]
 }
 
 export interface IProductsRepository {

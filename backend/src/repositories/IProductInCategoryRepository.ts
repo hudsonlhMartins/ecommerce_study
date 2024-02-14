@@ -14,5 +14,5 @@ export interface IProductInCategoryRepository {
   }): Promise<void>
   list(): Promise<ProductInCategory[]>
   findProductByCategoryId(categoryId: UUID): Promise<ProductsJoinSku[] | []>
-  findCategorytByProductId(productId: UUID): Promise<Category | undefined>
+  findCategorytByProductId(productId: UUID): Promise<Category[] | undefined>
 }
