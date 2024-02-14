@@ -5,5 +5,7 @@ export class CreateimageUseCase {
   // eslint-disable-next-line
     constructor(private readonly imageRepository: IImageRepository){}
 
-  async execute(props: Omit<Image, 'imageUrl'>) {}
+  async execute(props: Image) {
+    await this.imageRepository.save(props)
+  }
 }
