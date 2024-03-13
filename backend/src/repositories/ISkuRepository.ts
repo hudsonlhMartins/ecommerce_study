@@ -10,7 +10,7 @@ export interface ISkuJoinImage extends Sku {
 }
 
 export interface ISkuRepository {
-  save(sku: Sku): Promise<void>
+  save(sku: Sku): Promise<number[]>
   findById(skuId: UUID): Promise<ISkuJoinImage | undefined>
   findByName(name: string): Promise<Sku | undefined>
 

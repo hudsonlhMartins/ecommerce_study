@@ -4,8 +4,8 @@ import { ISkuJoinImage, ISkuRepository } from '../ISkuRepository'
 import { Sku } from '@/entities/Sku'
 
 export class SqlSkuRepository implements ISkuRepository {
-  async save(sku: Sku): Promise<void> {
-    return await knex('skus').insert(sku)
+  async save(sku: Sku) {
+    return await knex('skus').returning('skuId').insert(sku)
   }
 
   async findById(skuId: UUID): Promise<ISkuJoinImage | undefined> {

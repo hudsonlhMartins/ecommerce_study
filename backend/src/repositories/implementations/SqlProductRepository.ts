@@ -5,8 +5,9 @@ import { knex } from '@/database'
 import { SqlProductInCategoryRepository } from './SqlProductInCategoryRepository'
 
 export class SqlProductRepository implements IProductsRepository {
-  async save(product: Product): Promise<void> {
-    await knex('products').insert(product)
+  async save(product: Product) {
+    const data = await knex('products').returning('*').insert(product)
+    return data
   }
 
   async findById(productId: UUID): Promise<ProductsJoinSku | undefined> {

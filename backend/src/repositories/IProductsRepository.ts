@@ -8,7 +8,7 @@ export interface ProductsJoinSku extends Product {
 }
 
 export interface IProductsRepository {
-  save(product: Product): Promise<void>
+  save(product: Product): Promise<number[]>
 
   findById(productId: UUID): Promise<ProductsJoinSku | undefined>
   findByName(name: string): Promise<ProductsJoinSku | undefined>
