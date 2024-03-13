@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { UUID } from 'node:crypto'
 import { IProductsRepository, ProductsJoinSku } from '../IProductsRepository'
 import { Product } from '@/entities/Product'
@@ -19,7 +20,23 @@ export class SqlProductRepository implements IProductsRepository {
         product.productId as UUID,
       )
     const skus = await knex('skus').where('productId', productId)
-    return { ...product, skus, categories: categories?.map((el) => el.name) }
+
+    const _skusWithImage = skus.map(async (sku) => {
+      const images = await knex('images').where('skuId', sku.skuId)
+      const _image = images.map((el) => {
+        const { imageUrl, ...rest } = el
+        return { ...rest, image_url: el.imageUrl }
+      })
+      return { ...sku, images: _image }
+    })
+
+    const skusWithImage = await Promise.all(_skusWithImage)
+
+    return {
+      ...product,
+      skus: skusWithImage,
+      categories: categories?.map((el) => el.name),
+    }
   }
 
   async findByName(name: string): Promise<ProductsJoinSku | undefined> {
@@ -31,10 +48,26 @@ export class SqlProductRepository implements IProductsRepository {
       await sqlProductInCategoryRepository.findCategorytByProductId(
         product.productId as UUID,
       )
+
+    const _skusWithImage = skus.map(async (sku) => {
+      const images = await knex('images').where('skuId', sku.skuId)
+      const _image = images.map((el) => {
+        const { imageUrl, ...rest } = el
+        return { ...rest, image_url: el.imageUrl }
+      })
+      return { ...sku, images: _image }
+    })
+
+    const skusWithImage = await Promise.all(_skusWithImage)
+
     if (!categories) {
-      return { ...product, skus }
+      return { ...product, skus: skusWithImage }
     }
-    return { ...product, skus, categories: categories.map((el) => el.name) }
+    return {
+      ...product,
+      skus: skusWithImage,
+      categories: categories.map((el) => el.name),
+    }
   }
 
   async list(): Promise<ProductsJoinSku[]> {
@@ -47,9 +80,19 @@ export class SqlProductRepository implements IProductsRepository {
           product.productId as UUID,
         )
       const skus = await knex('skus').where('productId', product.productId)
+
+      const _skusWithImage = skus.map(async (sku) => {
+        const images = await knex('images').where('skuId', sku.skuId)
+        const _image = images.map((el) => {
+          const { imageUrl, ...rest } = el
+          return { ...rest, image_url: el.imageUrl }
+        })
+        return { ...sku, images: _image }
+      })
+
       productjoinSku.push({
         ...product,
-        skus,
+        skus: await Promise.all(_skusWithImage),
         categories: categories?.map((el) => el.name),
       })
     }

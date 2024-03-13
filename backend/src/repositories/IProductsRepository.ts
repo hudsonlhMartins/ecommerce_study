@@ -1,9 +1,13 @@
+import { Image } from '@/entities/Image'
 import { Product } from '@/entities/Product'
 import { Sku } from '@/entities/Sku'
 import { UUID } from 'node:crypto'
 
+interface SkuParams extends Sku {
+  images: Image[]
+}
 export interface ProductsJoinSku extends Product {
-  skus: Sku[]
+  skus: SkuParams[]
   categories?: string[]
 }
 

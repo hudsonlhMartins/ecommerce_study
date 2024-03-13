@@ -6,6 +6,7 @@ import { ICreateProductWithSkuUseCaseParams } from './typings'
 import { UUID } from 'crypto'
 import { Product } from '@/entities/Product'
 import { Sku } from '@/entities/Sku'
+import { Image } from '@/entities/Image'
 
 export class CreateProductWithSkuUseCase {
   // eslint-disable-next-line no-useless-constructor
@@ -36,9 +37,10 @@ export class CreateProductWithSkuUseCase {
         await this.skuRepository.save(sku)
 
         for (const image of images) {
+          const _imageData = new Image({ ...image, skuId: sku.skuId as UUID })
+
           await this.imageRepository.save({
-            ...image,
-            skuId: sku.skuId as UUID,
+            ..._imageData,
           })
         }
       }
