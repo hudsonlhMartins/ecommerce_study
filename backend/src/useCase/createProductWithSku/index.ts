@@ -1,5 +1,5 @@
 import { CreateProductWithSkuController } from './CreateProductWithSkuController'
-import { CreateProductWithSkuUseCase } from './createProductWithSkuUseCase'
+import { CreateProductWithSkuUseCase } from './CreateProductWithSkuUseCase'
 import { SqlSkuRepository } from '@/repositories/implementations/SqlSkuRepository'
 import { SqlCategoryRepository } from '@/repositories/implementations/SqlCategoryRepository'
 import { SqlProductRepository } from '@/repositories/implementations/SqlProductRepository'
