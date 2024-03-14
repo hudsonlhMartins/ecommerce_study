@@ -7,6 +7,7 @@ import { UUID } from 'crypto'
 import { Product } from '@/entities/Product'
 import { Sku } from '@/entities/Sku'
 import { Image } from '@/entities/Image'
+import { ErrorNotFound } from '@/errors/error-not-found'
 
 export class CreateProductWithSkuUseCase {
   // eslint-disable-next-line no-useless-constructor
@@ -21,7 +22,7 @@ export class CreateProductWithSkuUseCase {
     const { skus, categoryId, ...product } = params
     const findCategory = await this.categoryRepository.findById(categoryId)
     if (!findCategory) {
-      throw new Error('Category not found')
+      throw new ErrorNotFound('Category')
     }
     try {
       const productData = new Product(product)

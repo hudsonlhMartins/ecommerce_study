@@ -1,7 +1,8 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
-import { CreateProductWithSkuUseCase } from './createProductWithSkuUseCase'
+import { CreateProductWithSkuUseCase } from './CreateProductWithSkuUseCase'
 import { z } from 'zod'
 import { UUID } from 'crypto'
+import { ErrorNotFound } from '@/errors/error-not-found'
 
 export class CreateProductWithSkuController {
   // eslint-disable-next-line
@@ -46,7 +47,11 @@ export class CreateProductWithSkuController {
       })
       return res.status(201).send()
     } catch (err) {
-      return res.status(500).send({ message: 'Error unexpected' })
+      if (err instanceof ErrorNotFound) {
+        return res.status(404).send({ message: err.message })
+      }
+
+      return res.status(500).send({ message: 'Error unexpected', error: err })
     }
   }
 }
