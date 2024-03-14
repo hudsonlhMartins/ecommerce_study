@@ -7,20 +7,15 @@ export class CreateSkuController {
     constructor(private readonly createSkuUseCase: CreateSkuUseCase){}
 
   async handle(req: FastifyRequest, res: FastifyReply) {
-    const schemaCreateSku = z
-      .object({
-        name: z.string(),
-        productId: z.string(),
-        price: z.number(),
-        listPrice: z.number(),
-        color: z.string(),
-        size: z.string(),
-        isAvailable: z.boolean(),
-      })
-      .refine((data) => data.listPrice > data.price, {
-        message: 'listPrice deve ser maior que price',
-        path: ['listPrice'],
-      })
+    const schemaCreateSku = z.object({
+      name: z.string(),
+      productId: z.string(),
+      price: z.number(),
+      listPrice: z.number().optional(),
+      color: z.string(),
+      size: z.string(),
+      isAvailable: z.boolean(),
+    })
 
     const _body = schemaCreateSku.safeParse(req.body)
     if (!_body.success) {
