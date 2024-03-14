@@ -5,7 +5,7 @@ export class Sku {
   name: string = ''
   productId: string = ''
   price = 0
-  listPrice?: number = 0
+  listPrice?: number
   color: string = ''
   size: string = ''
   isAvailable = true
