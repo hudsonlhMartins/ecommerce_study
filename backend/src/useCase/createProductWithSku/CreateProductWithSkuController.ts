@@ -23,7 +23,7 @@ export class CreateProductWithSkuController {
             }),
           ),
           price: z.number(),
-          listPrice: z.number().optional(),
+          listPrice: z.number(),
           color: z.string(),
           size: z.string(),
           isAvailable: z.boolean(),
