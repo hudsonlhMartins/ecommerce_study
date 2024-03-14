@@ -47,8 +47,10 @@ export class CreateProductWithSkuUseCase {
       }
     } catch (err) {
       console.log(err)
-
-      throw new Error('Error to create product with sku')
+      if (err instanceof Error) {
+        throw new Error(`Error to create product with sku: ${err.message}`)
+      }
+      throw err
     }
   }
 }
