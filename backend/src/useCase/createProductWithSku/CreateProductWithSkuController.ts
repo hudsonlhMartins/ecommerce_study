@@ -51,7 +51,13 @@ export class CreateProductWithSkuController {
         return res.status(404).send({ message: err.message })
       }
 
-      return res.status(500).send({ message: 'Error unexpected', error: err })
+      if (err instanceof Error) {
+        return res
+          .status(500)
+          .send({ message: 'Error unexpected', error: err.message })
+      }
+
+      throw err
     }
   }
 }
