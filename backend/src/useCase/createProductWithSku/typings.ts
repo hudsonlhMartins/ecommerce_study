@@ -9,7 +9,7 @@ export interface iSkuParams {
   images: IImageParams[]
   name: string
   price: number
-  listPrice: number
+  listPrice?: number
   color: string
   size: string
   isAvailable: boolean
