@@ -8,6 +8,8 @@ import { Product } from '@/entities/Product'
 import { Sku } from '@/entities/Sku'
 import { Image } from '@/entities/Image'
 import { ErrorNotFound } from '@/errors/error-not-found'
+import { AddProductInCategoryUseCase } from '../addCategoryInProduct/AddProductInCategoryUseCase'
+import { IProductInCategoryRepository } from '@/repositories/IProductInCategoryRepository'
 
 export class CreateProductWithSkuUseCase {
   // eslint-disable-next-line no-useless-constructor
@@ -16,6 +18,7 @@ export class CreateProductWithSkuUseCase {
     private imageRepository: IImageRepository,
     private productsRepository: IProductsRepository,
     private skuRepository: ISkuRepository,
+    private productInCategoryRepository: IProductInCategoryRepository,
   ) {}
 
   async execute(params: ICreateProductWithSkuUseCaseParams) {
@@ -27,6 +30,13 @@ export class CreateProductWithSkuUseCase {
     try {
       const productData = new Product(product)
       await this.productsRepository.save(productData)
+      const addProductInCategoryUseCase = new AddProductInCategoryUseCase(
+        this.productInCategoryRepository,
+      )
+      await addProductInCategoryUseCase.execute({
+        categoryId,
+        productId: productData.productId as UUID,
+      })
 
       for (const skuItem of skus) {
         const { images, ...parmsSku } = skuItem

@@ -7,6 +7,10 @@ export class CreateSkuUseCase {
 
   async execute(props: Sku) {
     const sku = new Sku(props)
-    await this.skuRepository.save(sku)
+    try {
+      await this.skuRepository.save(sku)
+    } catch (e) {
+      console.log(e)
+    }
   }
 }

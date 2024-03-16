@@ -11,7 +11,7 @@ export class CreateSkuController {
       name: z.string(),
       productId: z.string(),
       price: z.number(),
-      listPrice: z.number(),
+      listprice: z.number(),
       color: z.string(),
       size: z.string(),
       isAvailable: z.boolean(),

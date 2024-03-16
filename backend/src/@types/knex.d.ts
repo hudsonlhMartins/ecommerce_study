@@ -16,7 +16,7 @@ declare module 'knex/types/tables' {
     images: {
       imageId: UUID
       name: string
-      imageUrl: string
+      image_url: string
       skuId: UUID
     }
   }

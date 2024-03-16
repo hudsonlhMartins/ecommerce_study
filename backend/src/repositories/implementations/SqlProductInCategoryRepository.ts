@@ -58,7 +58,19 @@ export class SqlProductInCategoryRepository
     const productjoinSku: ProductsJoinSku[] = []
     for (const product of products) {
       const skus = await knex('skus').where('productId', product.productId)
-      productjoinSku.push({ ...product, skus })
+
+      const _skusWithImage = skus.map(async (sku) => {
+        const images = await knex('images').where('skuId', sku.skuId)
+        const _image = images.map((el) => {
+          const { imageUrl, ...rest } = el
+          return { ...rest, image_url: imageUrl }
+        })
+        return { ...sku, images: _image }
+      })
+
+      const skusWithImage = await Promise.all(_skusWithImage)
+
+      productjoinSku.push({ ...product, skus: skusWithImage })
     }
 
     return productjoinSku

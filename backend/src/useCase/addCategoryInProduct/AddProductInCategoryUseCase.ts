@@ -1,4 +1,4 @@
-import { IProductInCategory } from '@/repositories/IProductInCategoryRepository'
+import { IProductInCategoryRepository } from '@/repositories/IProductInCategoryRepository'
 import { UUID } from 'node:crypto'
 
 export interface Product_Category {
@@ -7,10 +7,10 @@ export interface Product_Category {
 }
 export class AddProductInCategoryUseCase {
   // eslint-disable-next-line
-    constructor(private readonly productRepository: IProductInCategory){}
+    constructor(private readonly productInCategoryRepository: IProductInCategoryRepository){}
 
   async execute(props: Product_Category) {
-    const productInCategory = await this.productRepository.save(props)
+    const productInCategory = await this.productInCategoryRepository.save(props)
 
     return productInCategory
   }

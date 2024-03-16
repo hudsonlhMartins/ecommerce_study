@@ -24,8 +24,9 @@ export class SqlProductRepository implements IProductsRepository {
     const _skusWithImage = skus.map(async (sku) => {
       const images = await knex('images').where('skuId', sku.skuId)
       const _image = images.map((el) => {
-        const { imageUrl, ...rest } = el
-        return { ...rest, image_url: el.imageUrl }
+        const { image_url, ...rest } = el
+
+        return { ...rest, image_url }
       })
       return { ...sku, images: _image }
     })
@@ -52,8 +53,8 @@ export class SqlProductRepository implements IProductsRepository {
     const _skusWithImage = skus.map(async (sku) => {
       const images = await knex('images').where('skuId', sku.skuId)
       const _image = images.map((el) => {
-        const { imageUrl, ...rest } = el
-        return { ...rest, image_url: el.imageUrl }
+        const { ...rest } = el
+        return { ...rest }
       })
       return { ...sku, images: _image }
     })
@@ -84,8 +85,8 @@ export class SqlProductRepository implements IProductsRepository {
       const _skusWithImage = skus.map(async (sku) => {
         const images = await knex('images').where('skuId', sku.skuId)
         const _image = images.map((el) => {
-          const { imageUrl, ...rest } = el
-          return { ...rest, image_url: el.imageUrl }
+          const { ...rest } = el
+          return { ...rest }
         })
         return { ...sku, images: _image }
       })
