@@ -16,6 +16,6 @@ export interface IProductsRepository {
 
   findById(productId: UUID): Promise<ProductsJoinSku | undefined>
   findByName(name: string): Promise<ProductsJoinSku | undefined>
-
+  listProductsByCategoryId(categoryId: UUID): Promise<ProductsJoinSku[]>
   list(): Promise<ProductsJoinSku[]>
 }
